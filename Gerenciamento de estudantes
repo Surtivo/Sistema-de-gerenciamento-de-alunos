@@ -93,6 +93,7 @@ unsigned int funcao_hash(int chave, int tamanho_tabela) {           //Método da
     valor = valor - (int)valor;                                     //Parte fracionária;
     return (unsigned int)(tamanho_tabela * valor);
 }
+
 void insere_hash (Aluno *aluno, Aluno **tabela_hash){               //Função para inserir aluno na TabelaHash;
     int indice = funcao_hash(aluno->matricula, TAM);                //Chama "funcao_hash" para determinar o índice de qual posição o aluno ficará na tabela;
     if(tabela_hash[indice] == NULL)                                 //Se a posição estiver vazia, insere o aluno nessa posição;
@@ -102,6 +103,7 @@ void insere_hash (Aluno *aluno, Aluno **tabela_hash){               //Função p
         insere_hash(aluno, tabela_hash);                            //Incrementa a matricula do aluno para evitar colisão na tabela e chama a função novamente;
     }
 }
+
 void imprime_hash (Aluno **tabela_hash){
     printf("\n----------Inicio da Tabela Hash----------\n\n");
     for (int i = 0; i < TAM; i++){
@@ -111,7 +113,6 @@ void imprime_hash (Aluno **tabela_hash){
     }
     printf("\n-----------------------------------------\n");
 }
-
 
 Lista* crialista (){
     Lista *nova = (Lista*) malloc(sizeof(Lista));
@@ -135,6 +136,7 @@ void printalista (Lista *l){
     }
     printf("--------------------------------------\n\n");
 }
+
 void printalista_avs (Lista_Avs *l){
     Avaliacao *novo = l->avaliacoes;
     printf("\n\n----------Inicio da listagem de avaliacoes----------\n\n");
@@ -148,7 +150,6 @@ void printalista_avs (Lista_Avs *l){
     }
     printf("----------------------------------------------------\n\n");
 }
-
 
 void chamada (Lista *l){
     Aluno *nova = l->alunos;
@@ -178,7 +179,6 @@ void chamada (Lista *l){
     }
 }
 
-
 int checa_av_igual (Lista_Avs *l_avs, Avaliacao *av){
     Avaliacao *aux = l_avs->avaliacoes;
     while(aux != NULL){
@@ -190,6 +190,7 @@ int checa_av_igual (Lista_Avs *l_avs, Avaliacao *av){
     }
     return 1;
 }
+
 void cadastra_avaliacao (Lista *l, Lista_Avs *l_avs){
     Avaliacao *av = (Avaliacao *)malloc(sizeof(Avaliacao));         //Aloca memória para a nova avaliação;
     av->nome_avaliacao = (char *)malloc(20);                        //Aloca memória para a string;
@@ -221,6 +222,7 @@ void cadastra_avaliacao (Lista *l, Lista_Avs *l_avs){
     distribui_avaliacao(l_avs->avaliacoes, l);                      //Chama a função "distribui_avalicao" para dar a nota de todos o alunos nela;
     printf("\n");                                                   //É passado como parâmetro a cabeça da lista de avaliações que agora é a nova avaliação, av;
 }
+
 void distribui_avaliacao(Avaliacao *av, Lista *l){
     if (l->alunos == NULL){                                        //Se não houver alunos cadastrados, a função termina;
         return;
@@ -300,6 +302,7 @@ void cadastra_aluno(Lista *l, Lista_Avs *l_avs, Aluno **tabela_hash){
     global_numero_alunos++;
     printf("\n");
 }
+
 void checa_avs(Avaliacao *teste, Aluno *aluno){
     if (teste == NULL) return;              //Se não houver avaliações a função termina;
 
@@ -358,6 +361,7 @@ void lista_avaliacoes (Lista_Avs *l_avs, Lista *l){
     }
     printf("Avaliacao com codigo %d nao foi encontrada!\n\n", cod_av);
 }
+
 void relatorio_avaliacao (Avaliacao *av, Lista *l){             //Deu erro apenas uma vez;
     if (l == NULL || l->alunos == NULL || av == NULL) {
         printf("\nErro: Lista de alunos vazia ou avaliacao inexistente.\n\n");
@@ -395,6 +399,7 @@ void relatorio_avaliacao (Avaliacao *av, Lista *l){             //Deu erro apena
     ordenaNotasAvaliacao(l, av->cod_avaliacao);         //Chama a função "ordenaNotasAvaliacao" para ordenar as notas de forma decrescente;
     printf("--------------------------------------\n\n");
 }
+
 void ordenaNotasAvaliacao(Lista *l, int cod_avaliacao){
     if (l == NULL || l->alunos == NULL) return;         //Se não houver nenhum aluno cadastrado, não há nada para ordenar. A função termina;
 
@@ -448,10 +453,12 @@ void printa_lista_ordenada (Lista_notas* l){
         atual = atual->prox;
     }
 }
+
 void insere_nota(Lista_notas* l, Notas *av_aluno){
     av_aluno->prox = l->notas;
     l->notas = av_aluno;
 }
+
 Lista_notas* cria_lista_notas (){
     Lista_notas *nova = (Lista_notas*) malloc(sizeof(Lista_notas));
     nova->notas = NULL;
@@ -473,6 +480,7 @@ Notas* particiona(Notas *inicio, Notas *fim){
     troca_notas(i, fim);
     return i;
 }
+
 void QuickSort(Notas *inicio, Notas *fim){
     if (inicio != NULL && fim != NULL && inicio != fim && inicio != fim->prox){
         Notas *pivo = particiona(inicio, fim);
@@ -486,6 +494,7 @@ void QuickSort(Notas *inicio, Notas *fim){
         }
     }
 }
+
 void troca_notas (Notas *a, Notas *b){
     float tempNota = a->nota_aluno;
     int tempDisciplina = a->disciplina;
@@ -542,6 +551,7 @@ int particiona_mat(Aluno **tabela_hash, int beg, int end) {
     }
     return beg;
 }
+
 void quicksort_mat(Aluno **tabela_hash, int beg, int end) {
     if (beg < end) {
         int mid = particiona_mat(tabela_hash, beg, end);
@@ -564,6 +574,7 @@ int particiona_nome (Aluno **tabela_hash, int beg, int end) {
     troca_posicao(tabela_hash, i + 1, end);
     return (i + 1);
 }
+
 void quicksort_nome (Aluno **tabela_hash, int beg, int end) {
     if (beg < end) {
         int mid = particiona_nome(tabela_hash, beg, end);
@@ -588,6 +599,7 @@ int particiona_somatorio(Aluno **tabela_hash, int beg, int end) {       //Deu er
     }
     return beg;
 }
+
 void quicksort_somatorio(Aluno **tabela_hash, int beg, int end) {
     if (beg < end) {
         int mid = particiona_somatorio(tabela_hash, beg, end);
@@ -612,6 +624,7 @@ int particiona_falta(Aluno **tabela_hash, int beg, int end) {
     }
     return beg;
 }
+
 void quicksort_falta(Aluno **tabela_hash, int beg, int end) {
     if (beg < end) {
         int mid = particiona_falta(tabela_hash, beg, end);
@@ -679,6 +692,7 @@ void relatorio_alunos (Aluno **tabela_hash, Lista *l){
             printf("Selecao invalida! Tente novamente.\n");
     }
 }
+
 void imprime_hashe_v2 (Aluno **tabela_hash, int caso) {        //Aqui recebemos a tabela e o número do caso. Desse modo, sabemos em qual ordem fazer a impressão;
     printf("\n\n----------Inicio da Tabela Hash----------\n\n");
     if(caso == 1){
