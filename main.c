@@ -1,4 +1,5 @@
 int main(){
+    
     Aluno* TabelaHash [TAM] = {NULL};                             //A tabela possuirá endereços do tipo Aluno. Será uma tabela que aponta para onde o aluno está na memória;
     Lista *l = crialista();
     Lista_Avs *l_avs = crialista_avs();
